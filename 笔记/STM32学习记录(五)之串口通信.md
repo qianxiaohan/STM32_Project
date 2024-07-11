@@ -2,15 +2,15 @@ STM32F103C8T6提供了[USART](https://baike.baidu.com/item/USART?fromModule=lemm
 
 USART框图：
 
- ![](D:\嵌入式学习\Stm32笔记\图片\USART框图.png)
+ ![](.\图片\USART框图.png)
 
 RTS、CTS是硬件控制流的引脚，在实际中很少使用RTS、CTS。可以将此框图简化：
 
- <img src="D:\嵌入式学习\Stm32笔记\图片\USART简化框图.png" style="zoom: 67%;" />
+ <img src=".\图片\USART简化框图.png" style="zoom: 67%;" />
 
 ### USART初始化流程图
 
- ![](D:\嵌入式学习\Stm32笔记\图片\USART初始化流程.png)
+ ![](.\图片\USART初始化流程.png)
 
 使用结构体初始化时，结构体成员的取值可以参照《STM32F103xx固件函数库用户手册》
 
@@ -18,9 +18,9 @@ RTS、CTS是硬件控制流的引脚，在实际中很少使用RTS、CTS。可�
 
 根据手册对USART、以及对应的GPIO进行配置，全双工通信方式下USART_TX的GPIO设置为复用推挽输出，USART_RX的GPIO设置为浮空输入/上拉输入
 
- ![](D:\嵌入式学习\Stm32笔记\图片\USART配置1.png)
+ ![](.\图片\USART配置1.png)
 
- ![](D:\嵌入式学习\Stm32笔记\图片\USART配置2.png)
+ ![](.\图片\USART配置2.png)
 
 ```c
 void COM_Init()
@@ -119,7 +119,7 @@ void USART1_IRQHandler(void)
 
 在keil的设置中勾选上[MicroLib](https://www.keil.com/arm/microlib.asp)
 
- ![](D:\嵌入式学习\Stm32笔记\图片\microLib设置.png)
+ ![](.\图片\microLib设置.png)
 
 包含头文件`stdio.h`，并重写`int fputc(int ch, FILE *f)`，在该函数中实现串口的发送，调用printf函数，会自动调用fputc函数
 
@@ -142,7 +142,7 @@ int fputc(int ch, FILE *f)
 
 ### 演示结果
 
- ![](D:\嵌入式学习\Stm32笔记\图片\串口演示结果.png)
+ ![](.\图片\串口演示结果.png)
 
 ### 参考链接
 
