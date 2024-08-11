@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-/* OLED ascii 8*16×ÖÌå¿â */
+/* OLED ascii 8*16å­—ä½“åº“ */
 const uint8_t OLED_F8x16[][16]=
 {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,

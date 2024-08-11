@@ -4,7 +4,7 @@
   * @author  
   * @version 
   * @date    
-  * @brief   ÊµÏÖÑÓÊ±º¯Êı£¬Ê¹ÓÃCortex-M3ÄÚºËµÄ¶¨Ê±Æ÷SysTickÊµÏÖ¶¨Ê±         
+  * @brief   å®ç°å»¶æ—¶å‡½æ•°ï¼Œä½¿ç”¨Cortex-M3å†…æ ¸çš„å®šæ—¶å™¨SysTickå®ç°å®šæ—¶         
  * ******************************************************************************
  * 
  */
@@ -13,13 +13,13 @@
 
 void delay_us(uint32_t us)
 {
-    SysTick->LOAD = SystemCoreClock / us;           //ÉèÖÃÖØ×°Öµ
-    SysTick->VAL = 0;                               //Éè¶¨µ±Ç°Öµ
-		NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);	//ÉèÖÃÖĞ¶ÏÓÅÏÈ¼¶
-    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk |    //SysTick_CTRL_CLKSOURCE_Msk£ºÊ±ÖÓÔ´Ñ¡ÔñHCLK
-                    SysTick_CTRL_ENABLE_Msk;        //Æô¶¯¶¨Ê±Æ÷
-    while(!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk));          //ÅĞ¶ÏCOUNTFLAGÎ»ÊÇ·ñÎª1
-    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;      //¹Ø±Õ¶¨Ê±Æ÷
+    SysTick->LOAD = SystemCoreClock / us;           //è®¾ç½®é‡è£…å€¼
+    SysTick->VAL = 0;                               //è®¾å®šå½“å‰å€¼
+		NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);	//è®¾ç½®ä¸­æ–­ä¼˜å…ˆçº§
+    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk |    //SysTick_CTRL_CLKSOURCE_Mskï¼šæ—¶é’Ÿæºé€‰æ‹©HCLK
+                    SysTick_CTRL_ENABLE_Msk;        //å¯åŠ¨å®šæ—¶å™¨
+    while(!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk));          //åˆ¤æ–­COUNTFLAGä½æ˜¯å¦ä¸º1
+    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;      //å…³é—­å®šæ—¶å™¨
 }
 
 void delay_ms(uint32_t ms)

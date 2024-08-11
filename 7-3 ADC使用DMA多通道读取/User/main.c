@@ -1,10 +1,10 @@
 /**
  * 
- * 	ADCÔÚË«ADCÄ£Ê½ÏÂ£¬Ê¹ÓÃDMA½øĞĞ¶àÍ¨µÀ²ÉÑù£º
+ * 	ADCåœ¨åŒADCæ¨¡å¼ä¸‹ï¼Œä½¿ç”¨DMAè¿›è¡Œå¤šé€šé“é‡‡æ ·ï¼š
  *  
- *  ADCÍ¨µÀºÍÒı½Å¶ÔÓ¦¹ØÏµ£º
+ *  ADCé€šé“å’Œå¼•è„šå¯¹åº”å…³ç³»ï¼š
  * 	ADC1_IN0   ---->  PA0 
- *  ADC1_IN16  ---->  ÄÚ²¿ÎÂ¶È´«¸ĞÆ÷£¬ÎŞĞèÍâ½Ó
+ *  ADC1_IN16  ---->  å†…éƒ¨æ¸©åº¦ä¼ æ„Ÿå™¨ï¼Œæ— éœ€å¤–æ¥
  *  ADC2_IN7   ---->  PA7
  *  
  * 
@@ -16,17 +16,17 @@
 #include "usart.h"
 #include <stdio.h>
 
-void parseData(void);					//½âÎöADC²ÉÑùµ½µÄÊı¾İ
-void ADC_Configuration(void);			//ÅäÖÃADC
-void DMA_Configuration(void);			//ÅäÖÃDMA
-void GPIO_Configuration(void);			//ÅäÖÃGPIO
-void RCC_Configuration(void);			//ÅäÖÃADCCLK¡¢GPIO¡¢ADCÊ±ÖÓ
+void parseData(void);					//è§£æADCé‡‡æ ·åˆ°çš„æ•°æ®
+void ADC_Configuration(void);			//é…ç½®ADC
+void DMA_Configuration(void);			//é…ç½®DMA
+void GPIO_Configuration(void);			//é…ç½®GPIO
+void RCC_Configuration(void);			//é…ç½®ADCCLKã€GPIOã€ADCæ—¶é’Ÿ
 
-__IO uint32_t ADCConvertedValue[2]; //»º³åÇø£¬DMA½«¶ÁÈ¡µ½µÄÊı¾İ´æ·Åµ½ÆäÖĞ
+__IO uint32_t ADCConvertedValue[2]; //ç¼“å†²åŒºï¼ŒDMAå°†è¯»å–åˆ°çš„æ•°æ®å­˜æ”¾åˆ°å…¶ä¸­
 
 int main(void)
 {
-	COM_Init();				//´®¿Ú³õÊ¼»¯£¬ÓÃÓÚÊä³ö²ÉÑùÊı¾İ
+	COM_Init();				//ä¸²å£åˆå§‹åŒ–ï¼Œç”¨äºè¾“å‡ºé‡‡æ ·æ•°æ®
 	RCC_Configuration();	
 	GPIO_Configuration();
 	DMA_Configuration();	
@@ -42,82 +42,82 @@ int main(void)
 
 void RCC_Configuration(void)
 {
-    /* ¶ÔPCLK2½øĞĞ¶ş·ÖÆµ */
-	RCC_ADCCLKConfig(RCC_PCLK2_Div2);	//PCLK2½øĞĞ2·ÖÆµ£º28 / 2 = 14MHz  = 0.083us 
+    /* å¯¹PCLK2è¿›è¡ŒäºŒåˆ†é¢‘ */
+	RCC_ADCCLKConfig(RCC_PCLK2_Div2);	//PCLK2è¿›è¡Œ2åˆ†é¢‘ï¼š28 / 2 = 14MHz  = 0.083us 
 
-	/* ¿ªÆôGPIOB¡¢ADC1Ê±ÖÓ */
+	/* å¼€å¯GPIOBã€ADC1æ—¶é’Ÿ */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_ADC2, ENABLE);
 
-	/* ¿ªÆôDMAÊ±ÖÓ */
+	/* å¼€å¯DMAæ—¶é’Ÿ */
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 }
 
 void ADC_Configuration(void)
 {
 	
-	/* ÅäÖÃADC1 */
+	/* é…ç½®ADC1 */
 	ADC_InitTypeDef ADC_InitStructure;
-	ADC_InitStructure.ADC_Mode = ADC_Mode_RegSimult;	//³£¹æÍ¬²½Ä£Ê½Regular simultaneous mode
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;	//¿ªÆô³ÖĞø×ª»»Ä£Ê½
-	ADC_InitStructure.ADC_ScanConvMode = ENABLE;	//¿ªÆôÉ¨Ãè×ª»»Ä£Ê½
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;	//Êı¾İ¶ÔÆë·½Ê½£ºÓÒ¶ÔÆë
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;	//ÎŞÍâ²¿´¥·¢
-	ADC_InitStructure.ADC_NbrOfChannel = 2;	//2¸öADCÍ¨µÀ
+	ADC_InitStructure.ADC_Mode = ADC_Mode_RegSimult;	//å¸¸è§„åŒæ­¥æ¨¡å¼Regular simultaneous mode
+	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;	//å¼€å¯æŒç»­è½¬æ¢æ¨¡å¼
+	ADC_InitStructure.ADC_ScanConvMode = ENABLE;	//å¼€å¯æ‰«æè½¬æ¢æ¨¡å¼
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;	//æ•°æ®å¯¹é½æ–¹å¼ï¼šå³å¯¹é½
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;	//æ— å¤–éƒ¨è§¦å‘
+	ADC_InitStructure.ADC_NbrOfChannel = 2;	//2ä¸ªADCé€šé“
 	ADC_Init(ADC1, &ADC_InitStructure);
 
-	/* ÅäÖÃADC1Í¨µÀ0¡¢Í¨µÀ16µÄ²ÉÑùË³ĞòºÍ²ÉÑùÊ±¼ä */ 
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_16, 1, ADC_SampleTime_239Cycles5); //²ÉÑùÊ±¼ä0.083us * 239.5 = 19.88us
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 2, ADC_SampleTime_239Cycles5); //²ÉÑùÊ±¼ä0.083us * 239.5 = 19.88us
+	/* é…ç½®ADC1é€šé“0ã€é€šé“16çš„é‡‡æ ·é¡ºåºå’Œé‡‡æ ·æ—¶é—´ */ 
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_16, 1, ADC_SampleTime_239Cycles5); //é‡‡æ ·æ—¶é—´0.083us * 239.5 = 19.88us
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 2, ADC_SampleTime_239Cycles5); //é‡‡æ ·æ—¶é—´0.083us * 239.5 = 19.88us
 
 	/* Enable the temperature sensor and vref internal channel */ 
 	ADC_TempSensorVrefintCmd(ENABLE); 
 	
-	/* ¿ªÊ¼ADC1µÄDMAÄ£Ê½ */
+	/* å¼€å§‹ADC1çš„DMAæ¨¡å¼ */
 	ADC_DMACmd(ADC1, ENABLE);
 
-	/* ÅäÖÃADC2 */
-	ADC_InitStructure.ADC_Mode = ADC_Mode_RegSimult;	//³£¹æÍ¬²½Ä£Ê½Regular simultaneous mode
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;	//¿ªÆô³ÖĞø×ª»»Ä£Ê½
-	ADC_InitStructure.ADC_ScanConvMode = ENABLE;	//¿ªÆôÉ¨Ãè×ª»»Ä£Ê½
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;	//Êı¾İ¶ÔÆë·½Ê½£ºÓÒ¶ÔÆë
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;	//ÎŞÍâ²¿´¥·¢
-	ADC_InitStructure.ADC_NbrOfChannel = 1;	//1¸öADCÍ¨µÀ
+	/* é…ç½®ADC2 */
+	ADC_InitStructure.ADC_Mode = ADC_Mode_RegSimult;	//å¸¸è§„åŒæ­¥æ¨¡å¼Regular simultaneous mode
+	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;	//å¼€å¯æŒç»­è½¬æ¢æ¨¡å¼
+	ADC_InitStructure.ADC_ScanConvMode = ENABLE;	//å¼€å¯æ‰«æè½¬æ¢æ¨¡å¼
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;	//æ•°æ®å¯¹é½æ–¹å¼ï¼šå³å¯¹é½
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;	//æ— å¤–éƒ¨è§¦å‘
+	ADC_InitStructure.ADC_NbrOfChannel = 1;	//1ä¸ªADCé€šé“
 	ADC_Init(ADC2, &ADC_InitStructure);
 
-	ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5); //²ÉÑùÊ±¼ä0.083us * 239.5 = 19.88us
+	ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5); //é‡‡æ ·æ—¶é—´0.083us * 239.5 = 19.88us
 
-	/* ¿ªÆôADC1 */
+	/* å¼€å¯ADC1 */
 	ADC_Cmd(ADC1, ENABLE);
 
-	/* ÖØÖÃADCĞ£×¼¼Ä´æÆ÷ */
+	/* é‡ç½®ADCæ ¡å‡†å¯„å­˜å™¨ */
 	ADC_ResetCalibration(ADC1);
 
-	/* ¼ì²é¸´Î»ADCĞ£×¼ÊÇ·ñ½áÊø */
+	/* æ£€æŸ¥å¤ä½ADCæ ¡å‡†æ˜¯å¦ç»“æŸ */
 	while(ADC_GetResetCalibrationStatus(ADC1));
 
-	/* ¿ªÆôADCĞ£×¼ */
+	/* å¼€å¯ADCæ ¡å‡† */
 	ADC_StartCalibration(ADC1);
 
-	/* ¼ì²éĞ£×¼ÊÇ·ñ½áÊø */
+	/* æ£€æŸ¥æ ¡å‡†æ˜¯å¦ç»“æŸ */
 	while(ADC_GetCalibrationStatus(ADC1));
 
 
-	/* ¿ªÆôADC2 */
+	/* å¼€å¯ADC2 */
 	ADC_Cmd(ADC2, ENABLE);
 
-	/* ÖØÖÃADCĞ£×¼¼Ä´æÆ÷ */
+	/* é‡ç½®ADCæ ¡å‡†å¯„å­˜å™¨ */
 	ADC_ResetCalibration(ADC2);
 
-	/* ¼ì²é¸´Î»ADCĞ£×¼ÊÇ·ñ½áÊø */
+	/* æ£€æŸ¥å¤ä½ADCæ ¡å‡†æ˜¯å¦ç»“æŸ */
 	while(ADC_GetResetCalibrationStatus(ADC2));
 
-	/* ¿ªÆôADCĞ£×¼ */
+	/* å¼€å¯ADCæ ¡å‡† */
 	ADC_StartCalibration(ADC2);
 
-	/* ¼ì²éĞ£×¼ÊÇ·ñ½áÊø */
+	/* æ£€æŸ¥æ ¡å‡†æ˜¯å¦ç»“æŸ */
 	while(ADC_GetCalibrationStatus(ADC2));
 
-	/* ¿ªÊ¼ADCÈí¼ş×ª»» */
+	/* å¼€å§‹ADCè½¯ä»¶è½¬æ¢ */
 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
 	ADC_SoftwareStartConvCmd(ADC2, ENABLE);
 
@@ -132,33 +132,33 @@ void ADC_Configuration(void)
 
 void DMA_Configuration(void)
 {
-	/* ·´³õÊ¼»¯DMA1Í¨µÀ1 */
+	/* ååˆå§‹åŒ–DMA1é€šé“1 */
 	DMA_DeInit(DMA1_Channel1);
 
-	/* ÅäÖÃDMA³õÊ¼»¯½á¹¹Ìå */
+	/* é…ç½®DMAåˆå§‹åŒ–ç»“æ„ä½“ */
 	DMA_InitTypeDef DMA_InitStructure;
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(ADC1->DR);		//ÅäÖÃÍâÉè»ùµØÖ·£¬ÕâÀïÊÇADC1Êı¾İ¼Ä´æÆ÷µÄµØÖ·
-	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;	//ÍâÉèÊı¾İ´óĞ¡£¬32Î», Ë«ADCÄ£Ê½
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)ADCConvertedValue;		//ÅäÖÃÄÚ´æ»ùµØÖ·£¬ÕâÀïÊÇÊı¾İ´æ·ÅµÄÄÚ´æµØÖ·
-	DMA_InitStructure.DMA_BufferSize = 2;		//»º´æ´óĞ¡£¬ÒÔÊı¾İÁ¿ÎªÒ»¸öµ¥Î»
-	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;	//ÍâÉè×÷ÎªÊı¾İ´«ÊäµÄÀ´Ô´ 
-	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;	//¹Ø±ÕDMAµÄÄÚ´æµ½ÄÚ´æÄ£Ê½
-	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;	//ÄÚ´æÊı¾İ´óĞ¡£¬32Î»
-	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;	//ÄÚ´æµØÖ·µİÔö
-	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;		//Ñ­»·»º´æÄ£Ê½£¬¼´¶à´Î¶ÁÈ¡Êı¾İµ½»º³åÇø
-	DMA_InitStructure.DMA_Priority = DMA_Priority_High;		//ÓÅÏÈ¼¶¸ß
-	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;	//ÍâÉèµØÖ·²»µİÔö
-	DMA_Init(DMA1_Channel1, &DMA_InitStructure);	//³õÊ¼»¯DMA
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(ADC1->DR);		//é…ç½®å¤–è®¾åŸºåœ°å€ï¼Œè¿™é‡Œæ˜¯ADC1æ•°æ®å¯„å­˜å™¨çš„åœ°å€
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;	//å¤–è®¾æ•°æ®å¤§å°ï¼Œ32ä½, åŒADCæ¨¡å¼
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)ADCConvertedValue;		//é…ç½®å†…å­˜åŸºåœ°å€ï¼Œè¿™é‡Œæ˜¯æ•°æ®å­˜æ”¾çš„å†…å­˜åœ°å€
+	DMA_InitStructure.DMA_BufferSize = 2;		//ç¼“å­˜å¤§å°ï¼Œä»¥æ•°æ®é‡ä¸ºä¸€ä¸ªå•ä½
+	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;	//å¤–è®¾ä½œä¸ºæ•°æ®ä¼ è¾“çš„æ¥æº 
+	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;	//å…³é—­DMAçš„å†…å­˜åˆ°å†…å­˜æ¨¡å¼
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;	//å†…å­˜æ•°æ®å¤§å°ï¼Œ32ä½
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;	//å†…å­˜åœ°å€é€’å¢
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;		//å¾ªç¯ç¼“å­˜æ¨¡å¼ï¼Œå³å¤šæ¬¡è¯»å–æ•°æ®åˆ°ç¼“å†²åŒº
+	DMA_InitStructure.DMA_Priority = DMA_Priority_High;		//ä¼˜å…ˆçº§é«˜
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;	//å¤–è®¾åœ°å€ä¸é€’å¢
+	DMA_Init(DMA1_Channel1, &DMA_InitStructure);	//åˆå§‹åŒ–DMA
 
-	DMA_Cmd(DMA1_Channel1, ENABLE);	//Ê¹ÄÜDMA
+	DMA_Cmd(DMA1_Channel1, ENABLE);	//ä½¿èƒ½DMA
 }
 
 
 void GPIO_Configuration(void)
 {
-	/* ÅäÖÃGPIO */    
+	/* é…ç½®GPIO */    
     GPIO_InitTypeDef GPIOInitStructure;
-    GPIOInitStructure.GPIO_Mode = GPIO_Mode_AIN;	//Ä£ÄâÊäÈë
+    GPIOInitStructure.GPIO_Mode = GPIO_Mode_AIN;	//æ¨¡æ‹Ÿè¾“å…¥
     GPIOInitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_7;
     GPIOInitStructure.GPIO_Speed = GPIO_Speed_50MHz; 
     GPIO_Init(GPIOA, &GPIOInitStructure);
@@ -166,29 +166,29 @@ void GPIO_Configuration(void)
 
 void parseData(void)
 {
-	// Temperature (in ¡ãC) = {(V25 - VSENSE) / Avg_Slope} + 25.
-	// v25µäĞÍÖµ1.43V  Avg_Slope 4.3mv/¡ãc VSENSE=DataValue
-	//¾«¶ÈVdda/4096
+	// Temperature (in Â°C) = {(V25 - VSENSE) / Avg_Slope} + 25.
+	// v25å…¸å‹å€¼1.43V  Avg_Slope 4.3mv/Â°c VSENSE=DataValue
+	//ç²¾åº¦Vdda/4096
 
 	/**
-	 *   adc1_data²ÉÑùÄÚ²¿ÎÂ¶È´«¸ĞÆ÷µÄÊı¾İ
-	 *   adc1_data2²ÉÑùPA0µÄÊı¾İ
-	 *   adc2_data²ÉÑùPA7µÄÊı¾İ	
+	 *   adc1_dataé‡‡æ ·å†…éƒ¨æ¸©åº¦ä¼ æ„Ÿå™¨çš„æ•°æ®
+	 *   adc1_data2é‡‡æ ·PA0çš„æ•°æ®
+	 *   adc2_dataé‡‡æ ·PA7çš„æ•°æ®	
 	 * 
 	 */
 
 	double temperature;
 	uint16_t adc1_data, adc2_data, adc1_data2;
-	/* µÍ16Î»ÊÇADC1µÄÊı¾İ£¬¸ß16Î»ÊÇADC2µÄÊı¾İ */
+	/* ä½16ä½æ˜¯ADC1çš„æ•°æ®ï¼Œé«˜16ä½æ˜¯ADC2çš„æ•°æ® */
 	adc1_data = ADCConvertedValue[0] & 0xffff;
 	adc2_data = (ADCConvertedValue[0] >> 16);
 	adc1_data2 = ADCConvertedValue[1] & 0xffff;
 
-	/* Ê¹ÓÃ²Î¿¼ÊÖ²áËù¸ø³öµÄ¹«Ê½¼ÆËã³öÎÂ¶È */
+	/* ä½¿ç”¨å‚è€ƒæ‰‹å†Œæ‰€ç»™å‡ºçš„å…¬å¼è®¡ç®—å‡ºæ¸©åº¦ */
 	double VSENSE = (double)adc1_data*(3.3/4096);
 	temperature = (1.43 - VSENSE) / (0.0043) + 25;
 	
-	/* ´®¿ÚÊä³öÊı¾İ */
+	/* ä¸²å£è¾“å‡ºæ•°æ® */
 	printf("t: %.2f, d1: %d, d2: %d", temperature, adc2_data, adc1_data2);
 }
 

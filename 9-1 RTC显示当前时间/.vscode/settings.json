@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stm32f10x.h": "c",
+        "key.h": "c",
+        "usart.h": "c",
+        "delay.h": "c",
+        "stdio.h": "c",
+        "rtc.h": "c"
+    }
+}

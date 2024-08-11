@@ -6,26 +6,26 @@ uint8_t receiveCounter;
 
 void COM_Init(void)
 {
-	/* ¿ªÆôÊ±ÖÓ */
+	/* å¼€å¯æ—¶é’Ÿ */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_USART1, ENABLE);
 
-    /* ÅäÖÃGPIO */
+    /* é…ç½®GPIO */
     GPIO_InitTypeDef GPIO_InitStructure;
 
-	/*	ÅäÖÃUSARTx TxµÄGPIO¿Ú */
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	//¸´ÓÃÍÆÍìÊä³ö
+	/*	é…ç½®USARTx Txçš„GPIOå£ */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	//å¤ç”¨æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	/*	ÅäÖÃUSARTx RxµÄGPIO¿Ú */
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	//¸´ÓÃ¸¡¿ÕÊäÈë
+	/*	é…ç½®USARTx Rxçš„GPIOå£ */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	//å¤ç”¨æµ®ç©ºè¾“å…¥
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/**
-	 *  ´®¿Ú²ÎÊıÅäÖÃ£º
-	 * 	²¨ÌØÂÊ 115200¡¢ÎŞÓ²¼ş¿ØÖÆÁ÷¡¢ÎŞĞ£ÑéÎ»¡¢8Î»Êı¾İÎ»¡¢1Î»Í£Ö¹Î»¡¢·¢ËÍ/½ÓÊÕÄ£Ê½
+	 *  ä¸²å£å‚æ•°é…ç½®ï¼š
+	 * 	æ³¢ç‰¹ç‡ 115200ã€æ— ç¡¬ä»¶æ§åˆ¶æµã€æ— æ ¡éªŒä½ã€8ä½æ•°æ®ä½ã€1ä½åœæ­¢ä½ã€å‘é€/æ¥æ”¶æ¨¡å¼
 	 *  
 	 */
     USART_InitTypeDef USART_InitStructure;
@@ -37,17 +37,17 @@ void COM_Init(void)
     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
     USART_Init(USART1, &USART_InitStructure);
 
-	/* ÅäÖÃNVIC */
-	NVIC_SetPriorityGrouping(NVIC_PriorityGroup_2);
-	NVIC_InitTypeDef NVIC_InitStructure;
-	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
+	/* é…ç½®NVIC */
+	// NVIC_SetPriorityGrouping(NVIC_PriorityGroup_2);
+	// NVIC_InitTypeDef NVIC_InitStructure;
+	// NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+	// NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	// NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+	// NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	// NVIC_Init(&NVIC_InitStructure);
 
-	/* Ê¹ÄÜ½ÓÊÕÖĞ¶Ï */
-    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+	/* ä½¿èƒ½æ¥æ”¶ä¸­æ–­ */
+    // USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
     USART_Cmd(USART1, ENABLE);
 }
 
@@ -60,22 +60,22 @@ void COM_SendData(uint8_t data)
 	 *   0: Data is not transferred to the shift register
      *   1: Data is transferred to the shift register
 	 * 	
-	 * 	TXE = 1£º·¢ËÍÍê³É£¬ TXE = 0£º»¹Î´·¢ËÍÍê³É
+	 * 	TXE = 1ï¼šå‘é€å®Œæˆï¼Œ TXE = 0ï¼šè¿˜æœªå‘é€å®Œæˆ
 	 * 
 	 */
 	while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);	
 }
 
-/* USART1ÖĞ¶Ï´¦Àíº¯Êı */
+/* USART1ä¸­æ–­å¤„ç†å‡½æ•° */
 void USART1_IRQHandler(void)
 {
 	/**
-	 * ÅĞ¶ÏÖĞ¶ÏÔ´ÊÇ·ñÊÇ½ÓÊÕÖĞ¶Ï
-	 * ·µ»ØSETÔòËµÃ÷ÊÇ½ÓÊÕÖĞ¶Ï
+	 * åˆ¤æ–­ä¸­æ–­æºæ˜¯å¦æ˜¯æ¥æ”¶ä¸­æ–­
+	 * è¿”å›SETåˆ™è¯´æ˜æ˜¯æ¥æ”¶ä¸­æ–­
 	 */
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 	{
-		/* ¶ÁÈ¡Êı¾İ¼Ä´æÆ÷ÖĞµÄÊı¾İ£¬ */
+		/* è¯»å–æ•°æ®å¯„å­˜å™¨ä¸­çš„æ•°æ®ï¼Œ */
 		uint8_t tempdata = USART_ReceiveData(USART1);
 		receiveBuffer[receiveCounter++] = tempdata;
 		COM_SendData(tempdata);
@@ -86,7 +86,7 @@ void USART1_IRQHandler(void)
 int fputc(int ch, FILE *f)
 {
 	USART_SendData(USART1, (uint8_t)ch);
-	/* Ó²¼ş»á×Ô¶¯ÖÃ1 */
+	/* ç¡¬ä»¶ä¼šè‡ªåŠ¨ç½®1 */
 	while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)	
 	{
 		// USART_ClearFlag(USART1, USART_FLAG_TXE);

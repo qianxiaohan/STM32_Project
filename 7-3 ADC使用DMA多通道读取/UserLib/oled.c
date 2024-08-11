@@ -5,49 +5,49 @@
 
 void OLED_Init(void)
 {
-    delay_s(1);             //ÑÓÊ±1s£¬ÎÈ¶¨OLEDÉÏµç×´Ì¬
-    OLED_I2C_Init();			//¶Ë¿Ú³õÊ¼»¯
+    delay_s(1);             //å»¶æ—¶1sï¼Œç¨³å®šOLEDä¸Šç”µçŠ¶æ€
+    OLED_I2C_Init();			//ç«¯å£åˆå§‹åŒ–
     
 	
-    /* Ö±½Ó¸´ÖÆÕ³ÌùÒÔÏÂÃüÁî */
+    /* ç›´æ¥å¤åˆ¶ç²˜è´´ä»¥ä¸‹å‘½ä»¤ */
 
-	OLED_WriteCmd(0xAE);	//¹Ø±ÕÏÔÊ¾
+	OLED_WriteCmd(0xAE);	//å…³é—­æ˜¾ç¤º
 	
-	OLED_WriteCmd(0xD5);	//ÉèÖÃÏÔÊ¾Ê±ÖÓ·ÖÆµ±È/Õñµ´Æ÷ÆµÂÊ
+	OLED_WriteCmd(0xD5);	//è®¾ç½®æ˜¾ç¤ºæ—¶é’Ÿåˆ†é¢‘æ¯”/æŒ¯è¡å™¨é¢‘ç‡
 	OLED_WriteCmd(0x80);
 	
-	OLED_WriteCmd(0xA8);	//ÉèÖÃ¶àÂ·¸´ÓÃÂÊ
+	OLED_WriteCmd(0xA8);	//è®¾ç½®å¤šè·¯å¤ç”¨ç‡
 	OLED_WriteCmd(0x3F);
 	
-	OLED_WriteCmd(0xD3);	//ÉèÖÃÏÔÊ¾Æ«ÒÆ
+	OLED_WriteCmd(0xD3);	//è®¾ç½®æ˜¾ç¤ºåç§»
 	OLED_WriteCmd(0x00);
 	
-	OLED_WriteCmd(0x40);	//ÉèÖÃÏÔÊ¾¿ªÊ¼ĞĞ
+	OLED_WriteCmd(0x40);	//è®¾ç½®æ˜¾ç¤ºå¼€å§‹è¡Œ
 	
-	OLED_WriteCmd(0xA1);	//ÉèÖÃ×óÓÒ·½Ïò£¬0xA1Õı³£ 0xA0×óÓÒ·´ÖÃ
+	OLED_WriteCmd(0xA1);	//è®¾ç½®å·¦å³æ–¹å‘ï¼Œ0xA1æ­£å¸¸ 0xA0å·¦å³åç½®
 	
-	OLED_WriteCmd(0xC8);	//ÉèÖÃÉÏÏÂ·½Ïò£¬0xC8Õı³£ 0xC0ÉÏÏÂ·´ÖÃ
+	OLED_WriteCmd(0xC8);	//è®¾ç½®ä¸Šä¸‹æ–¹å‘ï¼Œ0xC8æ­£å¸¸ 0xC0ä¸Šä¸‹åç½®
 
-	OLED_WriteCmd(0xDA);	//ÉèÖÃCOMÒı½ÅÓ²¼şÅäÖÃ
+	OLED_WriteCmd(0xDA);	//è®¾ç½®COMå¼•è„šç¡¬ä»¶é…ç½®
 	OLED_WriteCmd(0x12);
 	
-	OLED_WriteCmd(0x81);	//ÉèÖÃ¶Ô±È¶È¿ØÖÆ
+	OLED_WriteCmd(0x81);	//è®¾ç½®å¯¹æ¯”åº¦æ§åˆ¶
 	OLED_WriteCmd(0xCF);
 
-	OLED_WriteCmd(0xD9);	//ÉèÖÃÔ¤³äµçÖÜÆÚ
+	OLED_WriteCmd(0xD9);	//è®¾ç½®é¢„å……ç”µå‘¨æœŸ
 	OLED_WriteCmd(0xF1);
 
-	OLED_WriteCmd(0xDB);	//ÉèÖÃVCOMHÈ¡ÏûÑ¡Ôñ¼¶±ğ
+	OLED_WriteCmd(0xDB);	//è®¾ç½®VCOMHå–æ¶ˆé€‰æ‹©çº§åˆ«
 	OLED_WriteCmd(0x30);
 
-	OLED_WriteCmd(0xA4);	//ÉèÖÃÕû¸öÏÔÊ¾´ò¿ª/¹Ø±Õ
+	OLED_WriteCmd(0xA4);	//è®¾ç½®æ•´ä¸ªæ˜¾ç¤ºæ‰“å¼€/å…³é—­
 
-	OLED_WriteCmd(0xA6);	//ÉèÖÃÕı³£/µ¹×ªÏÔÊ¾
+	OLED_WriteCmd(0xA6);	//è®¾ç½®æ­£å¸¸/å€’è½¬æ˜¾ç¤º
 
-	OLED_WriteCmd(0x8D);	//ÉèÖÃ³äµç±Ã
+	OLED_WriteCmd(0x8D);	//è®¾ç½®å……ç”µæ³µ
 	OLED_WriteCmd(0x14);
 
-	OLED_WriteCmd(0xAF);	//¿ªÆôÏÔÊ¾
+	OLED_WriteCmd(0xAF);	//å¼€å¯æ˜¾ç¤º
 
     OLED_Clear();
 }
@@ -57,7 +57,7 @@ void OLED_I2C_Start(void)
     SDA_WriteBit(1);
     SCL_WriteBit(1);
     SDA_WriteBit(0);
-    SCL_WriteBit(0);    //SCLÎª0£¬SCLµÄÏÂÒ»¸öÊ±ÖÓÂö³åÊ±¿ªÊ¼·¢ËÍÊı¾İ
+    SCL_WriteBit(0);    //SCLä¸º0ï¼ŒSCLçš„ä¸‹ä¸€ä¸ªæ—¶é’Ÿè„‰å†²æ—¶å¼€å§‹å‘é€æ•°æ®
 }
 
 void OLED_I2C_Stop(void)
@@ -68,9 +68,9 @@ void OLED_I2C_Stop(void)
 }
 
 /**
- *  @brief  Èí¼şÄ£Äâiic³õÊ¼»¯
- *  @param  ÎŞ
- *  @retval ÎŞ
+ *  @brief  è½¯ä»¶æ¨¡æ‹Ÿiicåˆå§‹åŒ–
+ *  @param  æ— 
+ *  @retval æ— 
  * 
  */
 
@@ -79,12 +79,12 @@ void OLED_I2C_Init(void)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;    //¿ªÂ©Êä³öÄ£Ê½£¬Ö»ÊÇÓĞÔÚµÍµçÆ½ÏÂ²ÉÓÃÇı¶¯ÄÜÁ¦
+ 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;    //å¼€æ¼è¾“å‡ºæ¨¡å¼ï¼Œåªæ˜¯æœ‰åœ¨ä½ç”µå¹³ä¸‹é‡‡ç”¨é©±åŠ¨èƒ½åŠ›
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
  	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
-	SCL_WriteBit(1);        //À­¸ßSCLºÍSDA
+	SCL_WriteBit(1);        //æ‹‰é«˜SCLå’ŒSDA
 	SDA_WriteBit(1);
 }
 
@@ -92,29 +92,29 @@ void OLED_SendByte(uint8_t byte)
 {
     for(uint8_t i = 0; i < 8; i++)
     {
-        SDA_WriteBit(byte & ((0x80) >> i));     //ÒÀ´Î·¢ËÍbyteÖĞÃ¿Ò»Î»¶ş½øÖÆÊı¾İ
+        SDA_WriteBit(byte & ((0x80) >> i));     //ä¾æ¬¡å‘é€byteä¸­æ¯ä¸€ä½äºŒè¿›åˆ¶æ•°æ®
         SCL_WriteBit(1);
         SCL_WriteBit(0);
     }
-    SCL_WriteBit(1);	//¶îÍâµÄÒ»¸öÊ±ÖÓ£¬²»´¦ÀíÓ¦´ğĞÅºÅ
+    SCL_WriteBit(1);	//é¢å¤–çš„ä¸€ä¸ªæ—¶é’Ÿï¼Œä¸å¤„ç†åº”ç­”ä¿¡å·
 	SCL_WriteBit(0);
 }
 
 /**
- * @brief  OLEDÏÔÊ¾Ò»¸ö×Ö·û
- * @param  row Ğ´Èë×Ö·ûµÄĞĞºÅ È¡Öµ1~4
- * @param  col Ğ´ÈëµÄÁĞºÅ     È¡Öµ1~16  
- * @param  ch  ÒªĞ´ÈëµÄ×Ö·û
- * @retval ÎŞ
+ * @brief  OLEDæ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦
+ * @param  row å†™å…¥å­—ç¬¦çš„è¡Œå· å–å€¼1~4
+ * @param  col å†™å…¥çš„åˆ—å·     å–å€¼1~16  
+ * @param  ch  è¦å†™å…¥çš„å­—ç¬¦
+ * @retval æ— 
  * 
  * 0~7 =====>  1~4
- * ÊäÈë1£¬´¦Àí0,1
- * ÊäÈë2£¬´¦Àí2,3
- * ÊäÈë3£¬´¦Àí4,5
- * ÊäÈë4£¬Êä³ö6,7
+ * è¾“å…¥1ï¼Œå¤„ç†0,1
+ * è¾“å…¥2ï¼Œå¤„ç†2,3
+ * è¾“å…¥3ï¼Œå¤„ç†4,5
+ * è¾“å…¥4ï¼Œè¾“å‡º6,7
  * 
  * (1, 0)
- * y = kx+b ¹ı(1, 0), (2, 2)½â³öy = 2x-2 = 2*(x - 1)
+ * y = kx+b è¿‡(1, 0), (2, 2)è§£å‡ºy = 2x-2 = 2*(x - 1)
  * 
  */
 void OLED_ShowChar(uint8_t row, uint8_t col, uint8_t ch)
@@ -141,31 +141,31 @@ void OLED_ShowString(uint8_t row, uint8_t col, uint8_t *str)
 }
 
 /**
-  * @brief  OLEDĞ´Ö¸Áî
-  * @param  cmd ÒªĞ´ÈëµÄÊı¾İ
-  * @retval ÎŞ
+  * @brief  OLEDå†™æŒ‡ä»¤
+  * @param  cmd è¦å†™å…¥çš„æ•°æ®
+  * @retval æ— 
   * 
   * *******************************************************
-  * ´Ó»úµØÖ·£º7Î»+1Î»¶ÁĞ´Î»£¬D/C#Òı½Å³äµ±SA0Î»£¬SA0=1£¬Êı¾İÄ£Ê½£¬SA0=0£¬Ö¸ÁîÄ£Ê½
-  *          R/W#¾ö¶¨ÊÇ¶Á»¹ÊÇĞ´²Ù×÷£¬1ÊÇ¶Á£¬0ÊÇĞ´
-  *         ©°©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©´
-  *         ©¦ b7 ©¦ b6 ©¦ b5 ©¦ b4 ©¦ b3 ©¦ b2 ©¦ b1 ©¦ b0 ©¦
-  *         ©À©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©È
-  *         ©¦ 0  ©¦ 1  ©¦ 1  ©¦ 1  ©¦ 1  ©¦ 0  ©¦SA0 ©¦R/W#©¦
-  *         ©¸©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¼  
+  * ä»æœºåœ°å€ï¼š7ä½+1ä½è¯»å†™ä½ï¼ŒD/C#å¼•è„šå……å½“SA0ä½ï¼ŒSA0=1ï¼Œæ•°æ®æ¨¡å¼ï¼ŒSA0=0ï¼ŒæŒ‡ä»¤æ¨¡å¼
+  *          R/W#å†³å®šæ˜¯è¯»è¿˜æ˜¯å†™æ“ä½œï¼Œ1æ˜¯è¯»ï¼Œ0æ˜¯å†™
+  *         â”Œâ”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”
+  *         â”‚ b7 â”‚ b6 â”‚ b5 â”‚ b4 â”‚ b3 â”‚ b2 â”‚ b1 â”‚ b0 â”‚
+  *         â”œâ”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¤
+  *         â”‚ 0  â”‚ 1  â”‚ 1  â”‚ 1  â”‚ 1  â”‚ 0  â”‚SA0 â”‚R/W#â”‚
+  *         â””â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”˜  
   * 
-  * ¿ØÖÆ×Ö½Ú£º
-  *         CoÎ»£º If the Co bit is set as logic ¡°0¡±, the transmission of the following information will contain data bytes only.  
-  *         D/C#£º The D/C# bit determines the next data byte is acted as a command or a data. If the D/C# bit is 
-  *         set to logic ¡°0¡±, it defines the following data byte as a command. If the D/C# bit is set to 
-  *         logic ¡°1¡±, it defines the following data byte as a data which will be stored at the GDDRAM. 
+  * æ§åˆ¶å­—èŠ‚ï¼š
+  *         Coä½ï¼š If the Co bit is set as logic â€œ0â€, the transmission of the following information will contain data bytes only.  
+  *         D/C#ï¼š The D/C# bit determines the next data byte is acted as a command or a data. If the D/C# bit is 
+  *         set to logic â€œ0â€, it defines the following data byte as a command. If the D/C# bit is set to 
+  *         logic â€œ1â€, it defines the following data byte as a data which will be stored at the GDDRAM. 
   *         The GDDRAM column address pointer will be increased by one automatically after each 
   *         data write. 
-  *         ©°©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©¤©Ğ©¤©¤©¤©´
-  *         ©¦ b7 ©¦ b6 ©¦ b5 ©¦ b4 ©¦ b3 ©¦ b2 ©¦ b1 ©¦ b0 ©¦   ©¦
-  *         ©À©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©à©¤©¤©¤©¤©ÈACK©¦
-  *         ©¦ Co ©¦D/C#©¦ 0  ©¦ 0  ©¦ 0  ©¦ 0  ©¦ 0  ©¦ 0  ©¦   ©¦
-  *         ©¸©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¼
+  *         â”Œâ”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”¬â”€â”€â”€â”
+  *         â”‚ b7 â”‚ b6 â”‚ b5 â”‚ b4 â”‚ b3 â”‚ b2 â”‚ b1 â”‚ b0 â”‚   â”‚
+  *         â”œâ”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”¤ACKâ”‚
+  *         â”‚ Co â”‚D/C#â”‚ 0  â”‚ 0  â”‚ 0  â”‚ 0  â”‚ 0  â”‚ 0  â”‚   â”‚
+  *         â””â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”˜
   *  
   * *********************************************************
   * 
@@ -173,46 +173,46 @@ void OLED_ShowString(uint8_t row, uint8_t col, uint8_t *str)
 void OLED_WriteCmd(uint8_t cmd)
 {
     OLED_I2C_Start();
-    OLED_SendByte(0x78);    //µØÖ·×Ö½Ú£º·¢ËÍslave(´Ó»ú)µØÖ·
-    OLED_SendByte(0X00);    //¿ØÖÆ×Ö½Ú£º×¼±¸Ğ´Ö¸Áî£¬Co = 0, D/C# = 0
-    OLED_SendByte(cmd);     //Ğ´Ö¸Áî
+    OLED_SendByte(0x78);    //åœ°å€å­—èŠ‚ï¼šå‘é€slave(ä»æœº)åœ°å€
+    OLED_SendByte(0X00);    //æ§åˆ¶å­—èŠ‚ï¼šå‡†å¤‡å†™æŒ‡ä»¤ï¼ŒCo = 0, D/C# = 0
+    OLED_SendByte(cmd);     //å†™æŒ‡ä»¤
     OLED_I2C_Stop();
 }
 
 void OLED_WriteData(uint8_t data)
 {
     OLED_I2C_Start();
-    OLED_SendByte(0x78);    //µØÖ·×Ö½Ú£º·¢ËÍslave(´Ó»ú)µØÖ·
-    OLED_SendByte(0X40);    //¿ØÖÆ×Ö½Ú£º×¼±¸Ğ´Êı¾İ£¬Co = 0, D/C# = 1
-    OLED_SendByte(data);    //Ğ´Êı¾İ
+    OLED_SendByte(0x78);    //åœ°å€å­—èŠ‚ï¼šå‘é€slave(ä»æœº)åœ°å€
+    OLED_SendByte(0X40);    //æ§åˆ¶å­—èŠ‚ï¼šå‡†å¤‡å†™æ•°æ®ï¼ŒCo = 0, D/C# = 1
+    OLED_SendByte(data);    //å†™æ•°æ®
     OLED_I2C_Stop();
 }
 
 
 /**
-  * @brief  OLEDÉèÖÃ¹â±êÎ»ÖÃ
-  * @param  Y ÒÔ×óÉÏ½ÇÎªÔ­µã£¬ÏòÏÂ·½ÏòµÄ×ø±ê£¬·¶Î§£º0~7
-  * @param  X ÒÔ×óÉÏ½ÇÎªÔ­µã£¬ÏòÓÒ·½ÏòµÄ×ø±ê£¬·¶Î§£º0~127
-  * @retval ÎŞ
+  * @brief  OLEDè®¾ç½®å…‰æ ‡ä½ç½®
+  * @param  Y ä»¥å·¦ä¸Šè§’ä¸ºåŸç‚¹ï¼Œå‘ä¸‹æ–¹å‘çš„åæ ‡ï¼ŒèŒƒå›´ï¼š0~7
+  * @param  X ä»¥å·¦ä¸Šè§’ä¸ºåŸç‚¹ï¼Œå‘å³æ–¹å‘çš„åæ ‡ï¼ŒèŒƒå›´ï¼š0~127
+  * @retval æ— 
   * 
   * **************************************************
-  *     128*64µÄµãÕó£¬´ÓĞĞ·½ÃæÀ´¿´64ĞĞµÄµãÕó·Ö³ÉÎªÁË8¸öPAGE£¬¼´PAGE0~PAGE7£¬ÕâÒ²ÊÇÎªÊ²Ã´yÈ¡0~7
-  *     ´ÓÁĞ·½ÃæÀ´¿´£¬128ÁĞµÄµãÕó£¬¼´SEG0~SGE127£¬ËùÒÔxÈ¡Öµ0~127
+  *     128*64çš„ç‚¹é˜µï¼Œä»è¡Œæ–¹é¢æ¥çœ‹64è¡Œçš„ç‚¹é˜µåˆ†æˆä¸ºäº†8ä¸ªPAGEï¼Œå³PAGE0~PAGE7ï¼Œè¿™ä¹Ÿæ˜¯ä¸ºä»€ä¹ˆyå–0~7
+  *     ä»åˆ—æ–¹é¢æ¥çœ‹ï¼Œ128åˆ—çš„ç‚¹é˜µï¼Œå³SEG0~SGE127ï¼Œæ‰€ä»¥xå–å€¼0~127
   * 
   */
 void OLED_SetCursor(uint8_t Y, uint8_t X)
 {
-	OLED_WriteCmd(0xB0 | Y);					//ÉèÖÃPAGEÆğÊ¼µØÖ·
-	OLED_WriteCmd(0x10 | ((X & 0xF0) >> 4));	//È¡xµÄ¸ß4Î»²¢ÓÒÒÆ4Î»£¬Óë¹Ì¶¨µÄ0x10°´Î»»ò£¬ÉèÖÃÁĞµØÖ·¸ß4Î»
-	OLED_WriteCmd(0x00 | (X & 0x0F));			//È¡xµÄµÍ4Î»ÉèÖÃÁĞµØÖ·µÍ4Î»£¬Óë¹Ì¶¨µÄ0x00°´Î»»ò£¬ÉèÖÃÁĞµØÖ·µÍ4Î»
+	OLED_WriteCmd(0xB0 | Y);					//è®¾ç½®PAGEèµ·å§‹åœ°å€
+	OLED_WriteCmd(0x10 | ((X & 0xF0) >> 4));	//å–xçš„é«˜4ä½å¹¶å³ç§»4ä½ï¼Œä¸å›ºå®šçš„0x10æŒ‰ä½æˆ–ï¼Œè®¾ç½®åˆ—åœ°å€é«˜4ä½
+	OLED_WriteCmd(0x00 | (X & 0x0F));			//å–xçš„ä½4ä½è®¾ç½®åˆ—åœ°å€ä½4ä½ï¼Œä¸å›ºå®šçš„0x00æŒ‰ä½æˆ–ï¼Œè®¾ç½®åˆ—åœ°å€ä½4ä½
 }
 
-/* OLEDÇåÆÁ  */
+/* OLEDæ¸…å±  */
 void OLED_Clear(void)
 {
     for (uint8_t i = 0; i < 8; i++)
     {
-        OLED_SetCursor(i, 0);   //¹â±êÉèÖÃµ½µÚiĞĞµÚ1ÁĞ
+        OLED_SetCursor(i, 0);   //å…‰æ ‡è®¾ç½®åˆ°ç¬¬iè¡Œç¬¬1åˆ—
         for (uint8_t j  = 0; j < 128; j++)
         {
             OLED_WriteData(0X00);
