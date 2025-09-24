@@ -1,0 +1,39 @@
+/**
+ ****************************************************************************************************
+ * @file        led.c
+ * @brief       LED灯初始化代码(包括时钟配置/中断管理/GPIO设置等)
+ ****************************************************************************************************
+ * @attention
+ * @note:     在使用此头文件时，需确保相关的依赖项已正确配置，
+ * @contact:  微信公众号 - [GenBotter]，分享技术内容
+ *            QQ群号 - [366182133]，在线技术支持
+ *            淘宝店铺 - [https://genbotter.taobao.com]，提供配套硬件产品
+ * 初始化PA6和PA7为输出口.并使能这两个口的时钟		    
+ * LED IO初始化
+ ****************************************************************************************************
+ */
+#include "led.h" 
+	 
+void LED_Init(void)
+{    	 
+  GPIO_InitTypeDef  GPIO_InitStructure;
+
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOA时钟
+
+  //GPIOF9,F10初始化设置
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;//LED0和LED1对应IO口
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIO
+	
+	GPIO_SetBits(GPIOA,GPIO_Pin_6 | GPIO_Pin_7);//设置高，灯灭
+
+}
+
+
+
+
+
+
