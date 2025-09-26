@@ -1,0 +1,1 @@
+GEN_CSRCS += _temp_alpha_50x50.c _huminity_alpha_50x50.c _IP_alpha_50x50.c
