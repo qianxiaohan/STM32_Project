@@ -57,3 +57,70 @@ Total Memory Usage:
 ```
 
 LVGL还可以进一步裁剪以减少SRAM和ROM
+
+## STM32F407+ESP8266获取天气
+
+基于HAL库实现，STM32F407VET6作为主控芯片，ESP8266-01S作为WIFI模块，并使用USB TO TTL连接电脑，查看解析结果。
+
+连线如下表所示：
+
+| STM32接线 | ESP8266 | USB TO TTL |
+| --------- | ------- | ---------- |
+| PA9       | RX      |            |
+| PA10      | TX      |            |
+| PB10      |         | RX         |
+| PB11      |         | TX         |
+
+考虑到ESP8266返回的JSON数据过大，如果使用串口会丢失数据，因此使用**DMA2来接收ESP8266发来的数据**，并通过**DMA1将解析后的数据发送**至串口助手中查看结果。
+
+通过心知天气API获取到的JSON数据：
+
+```json
+{
+  "results": [
+    {
+      "location": {
+        "id": "WM6N2PM3WY2K",
+        "name": "Chengdu",
+        "country": "CN",
+        "path": "Chengdu,Chengdu,Sichuan,China",
+        "timezone": "Asia/Shanghai",
+        "timezone_offset": "+08:00"
+      },
+      "daily": [
+        {
+          "date": "2025-10-21",
+          "text_day": "Overcast",
+          "code_day": "9",
+          "text_night": "Overcast",
+          "code_night": "9",
+          "high": "17",
+          "low": "12",
+          "rainfall": "0.00",
+          "precip": "0.00",
+          "wind_direction": "NE",
+          "wind_direction_degree": "45",
+          "wind_speed": "8.4",
+          "wind_scale": "2",
+          "humidity": "88"
+        }
+      ],
+      "last_update": "2025-10-21T08:00:00+08:00"
+    }
+  ]
+}
+```
+
+可以cJSON来解析json数据，但是需要修改STM32启动文件的堆栈大小，本例程中使用字符串匹配的方式来进行了简单的解析。
+
+测试结果：
+
+![ESP8266_TEST.gif](./img/ESP8266_TEST.gif)
+
+解析出的天气结果：
+
+```shell
+地区，日期，白天天气，晚上天气，最高温度，最低温度
+Chengdu, 2025-10-21, Overcast, Overcast, 17, 12
+```
+
