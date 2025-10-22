@@ -1,18 +1,18 @@
 #ifndef _ESP8266_H_
 #define _ESP8266_H_
 
-unsigned char ESP8266_Init(void);   //ESP8266³õÊ¼»¯
+unsigned char ESP8266_Init(void);   //ESP8266åˆå§‹åŒ–
 
-void ESP8266_Clear(void);   //Çå¿ÕESP8266»º³åÇø
+void ESP8266_Clear(void);   //æ¸…ç©ºESP8266ç¼“å­˜
 
-unsigned char ESP8266_SendCmd(const char *cmd, char *res);    //·¢ËÍATÖ¸Áî
+unsigned char ESP8266_SendCmd(const char *cmd, char *res);    //å‘é€ATæŒ‡ä»¤
 
-void ESP8266_SendLenData(unsigned char *data, unsigned short len);  //·¢ËÍ³¤¶ÈlenµÄÊı¾İ
+void ESP8266_SendLenData(unsigned char *data, unsigned short len);  //å‘é€é•¿åº¦ä¸ºlençš„æ•°æ®
 
-void ESP8266_SendData(unsigned char *data); //Í¸´«Ä£Ê½ÏÂ·¢ËÍÊı¾İ
+void ESP8266_SendData(unsigned char *data); //é€ä¼ æ¨¡å¼ä¸‹å‘é€æ•°æ®
 
-void ESP8266_GetResponse(void); //ÏòESP8266·¢ËÍGETÇëÇó£¬²¢»ñµÃÏìÓ¦
+void ESP8266_GetResponse(void); //ESP8266è·å–å“åº”
 
-unsigned short ESP8266_ReadData(unsigned char *buffer, unsigned short max_len); //´ÓDMA»º³åÇø¶ÁÈ¡Êı¾İ
+unsigned short ESP8266_ReadData(unsigned char *buffer, unsigned short max_len); //è¯»å–ç¼“å†²åŒºæ•°æ®
 
 #endif

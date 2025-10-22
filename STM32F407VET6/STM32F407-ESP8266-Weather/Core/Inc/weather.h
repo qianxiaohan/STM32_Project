@@ -33,8 +33,23 @@ typedef struct now_weather_t{
 }now_weather_t;
 
 
+/* 日期结构体 */
+typedef struct date_t{
+    char week[12];      //星期
+    char month[12];     //月
+    int day;            //日
+    int year;           //年
+    int hour;           //小时
+    int minute;         //分钟
+    int second;         //秒
+}date_t;
+
 now_weather_t parse_realtime_weather_data(const char *json_str); //解析实况天气
 future_weather_t parse_future_weather_data(const char *json_str);   //解析未来天气
 void parse_field(const char* str, const char* key, char* output, unsigned short max_len);
+unsigned char parse_date(const char *date_str, date_t *dt);    //解析日期用于更新本地RTC
+unsigned char intToBCD(int num);    //整数转BCD码
+unsigned char getMonthNumberCaseInsensitive(const char* monthStr);  //根据月份字符串返回对应的BCD码
+unsigned char getWeekNumberCaseInsensitive(const char* weekStr);    //根据星期几返回对应的整数，返回1~7
 
 #endif

@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
+#include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -48,13 +49,15 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+/* Buffers used for displaying Time and Date */
+uint8_t aShowTime[50] = {0};
+uint8_t aShowDate[50] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+static void RTC_CalendarShow(uint8_t *showtime, uint8_t *showdate);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -94,10 +97,12 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
 	/* 启动DMA接收 */
 	HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE);
+
 
 	uint8_t status = ESP8266_Init();
 	if (status == 1)
@@ -111,17 +116,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-    if(HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET)
-    {
-      HAL_Delay(20);
-      if(HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) == GPIO_PIN_RESET)
-      {
-        if (status == 1)
-        {
-          ESP8266_GetResponse();
-        }
-      }
-    }
+    /* 打印出日期和时间 */
+    RTC_CalendarShow(aShowDate, aShowTime);
+    HAL_Delay(1000);
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -146,7 +144,8 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -176,7 +175,23 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static void RTC_CalendarShow(uint8_t *showtime, uint8_t *showdate)
+{
+  RTC_DateTypeDef sdatestructureget;
+  RTC_TimeTypeDef stimestructureget;
 
+  /* Get the RTC current Time */
+  HAL_RTC_GetTime(&hrtc, &stimestructureget, RTC_FORMAT_BIN);
+  /* Get the RTC current Date */
+  HAL_RTC_GetDate(&hrtc, &sdatestructureget, RTC_FORMAT_BIN);
+  /* Display time Format : hh:mm:ss */
+  sprintf((char *)showtime, "%2d:%2d:%2d\r\n", stimestructureget.Hours, stimestructureget.Minutes, stimestructureget.Seconds);
+  HAL_UART_Transmit(&huart3, (uint8_t*)showtime, strlen((char*)showtime), 1000);
+	/* Display date Format : mm-dd-yy */
+  
+  sprintf((char *)showdate, "%2d-%2d-%2d\r\n", sdatestructureget.Month, sdatestructureget.Date, 2000 + sdatestructureget.Year);
+	HAL_UART_Transmit(&huart3, (uint8_t*)showdate, strlen((char*)showdate), 500);
+}
 /* USER CODE END 4 */
 
 /**
